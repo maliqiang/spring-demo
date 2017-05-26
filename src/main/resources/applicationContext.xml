@@ -6,16 +6,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--开启自动扫描-->
     <context:component-scan base-package="com.mark"/>
-    <!--防止返回json出现汉字乱码，spring默认编码是ISO-8859-1,不起作用
-    <mvc:annotation-driven>
-        <mvc:message-converters register-defaults="true">
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
-                <property name="supportedMediaTypes" value="text/json;charset=UTF-8"/>
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>-->
     <mvc:annotation-driven/>
     <context:annotation-config/>
+    <!--注解方式引入properties配置文件-->
     <context:property-placeholder location="classpath*:jdbc.properties" ignore-unresolvable="true"/>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${jdbc.url}"/>
@@ -24,7 +17,7 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
     <!--<bean id="jdbcTemplate"  class="org.springframework.jdbc.core.JdbcTemplate">-->
-        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
     <!--</bean>-->
     <!--spring mvc视图解析器配置-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,10 +27,11 @@
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
+        <!--此处可忽略，目前基本所有配置均在当前xml.如考虑多文件分类管理，可使用mybatis-config.xml进行mybatis相关配置-->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="typeAliasesPackage" value="com.mark.entity"/>
         <!-- 自动扫描mapping目录下的xml映射文件 -->
-        <property name="mapperLocations" value="classpath:com/mark/mapping/*.xml"/>
+        <property name="mapperLocations" value="classpath*:mapping/*.xml"/>
 
     </bean>
 

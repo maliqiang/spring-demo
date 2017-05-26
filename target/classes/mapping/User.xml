@@ -71,7 +71,7 @@
 
     <select id="getByUserName" resultType="com.mark.entity.User">
         SELECT * FROM USER u WHERE 1=1
-        <if test="userName != null">and u.userName=#{userName}</if>
+        <if test="userName != null">and u.user_name=#{userName}</if>
     </select>
 </mapper>
 

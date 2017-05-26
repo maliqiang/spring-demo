@@ -17,10 +17,6 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
 
-
-    <plugins>
-        <plugin interceptor="com.yazuo.basicservice.core.interceptors.PaginationInterceptor"/>
-    </plugins>
     
 
 </configuration>

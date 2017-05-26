@@ -16,5 +16,5 @@ public interface UserDao {
 
     int update(@Param("pojo") User pojo);
 
-    User getByUserName(String  userName);
+    User getByUserName(@Param(("userName")) String  userName);
 }

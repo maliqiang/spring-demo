@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mark.dao.UserDao">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.mark.entity.User">
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `user_id`,
+        `user_name`,
+        `age`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.userId">
+        INSERT INTO user (
+            `user_id`,
+            `user_name`,
+            `age`
+        ) VALUES (
+            #{pojo.userId},
+            #{pojo.userName},
+            #{pojo.age}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.userId">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.userId!=null"> `user_id`,</if>
+            <if test="pojo.userName!=null"> `user_name`,</if>
+            <if test="pojo.age!=null"> `age`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.userId!=null">#{pojo.userId},</if>
+            <if test="pojo.userName!=null">#{pojo.userName},</if>
+            <if test="pojo.age!=null">#{pojo.age},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.userId},
+            #{pojo.userName},
+            #{pojo.age}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE user
+        <set>
+            <if test="pojo.userId != null"> `user_id` = #{pojo.userId}, </if>
+            <if test="pojo.userName != null"> `user_name` = #{pojo.userName}, </if>
+            <if test="pojo.age != null"> `age` = #{pojo.age} </if>
+        </set>
+        WHERE user_id = #{pojo.userId}
+    </update>
+
+    <select id="getByUserName" resultType="com.mark.entity.User">
+        SELECT * FROM USER u WHERE 1=1
+        <if test="userName != null">and u.user_name=#{userName}</if>
+    </select>
+</mapper>
+

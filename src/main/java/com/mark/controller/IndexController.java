@@ -6,6 +6,8 @@ import com.mark.entity.User;
 import com.mark.service.UserService;
 import com.mark.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,12 +18,12 @@ import javax.annotation.Resource;
 /**
  * Created by maliqiang on 2017/2/7.
  */
-@RestController("index")
+@Controller("index")
 public class IndexController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/",method = RequestMethod.GET,produces = {"application/json; charset=utf-8"})
+    @RequestMapping(value = "/",method = RequestMethod.GET,produces = {"application/json; charset=utf-8"})//指定编码，防止返回乱码
     @ResponseBody
     public String index(){
         JsonResult rs = new JsonResult();
@@ -33,7 +35,7 @@ public class IndexController {
             rs.setCode(1);
             rs.setSuccess(false);
         }
-
+        //此处并没有使用Jackson配置自动转换成json
         return JSON.toJSONString(rs);
     }
 }
